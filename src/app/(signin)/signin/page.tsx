@@ -29,7 +29,7 @@ export default function Signin() {
             />
             <p className="text-default-500 text-center py-3">
               계정이 없으신가요?{' '}
-              <Link showAnchorIcon href="/">
+              <Link showAnchorIcon href="/signup">
                 회원가입
               </Link>
               혹은&nbsp;
@@ -37,7 +37,9 @@ export default function Signin() {
                 구글 로그인
               </Link>
             </p>
-            <Button className="bg-main text-white mt-3 mb-3">로그인</Button>
+            <Button size="lg" className="bg-main text-white mt-3 mb-3">
+              로그인
+            </Button>
           </CardBody>
         </Card>
       </div>
