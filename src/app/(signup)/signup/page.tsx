@@ -10,7 +10,7 @@ import {
   RadioGroup,
 } from '@nextui-org/react';
 
-export default function Signin() {
+export default function Signup() {
   return (
     <main className="flex flex-col justify-center items-center h-screen">
       <div>

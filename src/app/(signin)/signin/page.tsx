@@ -33,7 +33,7 @@ export default function Signin() {
                 회원가입
               </Link>
               혹은&nbsp;
-              <Link showAnchorIcon href="/">
+              <Link showAnchorIcon href="#">
                 구글 로그인
               </Link>
             </p>
