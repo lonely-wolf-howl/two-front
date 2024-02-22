@@ -1,10 +1,8 @@
-'use client';
-
-import React from 'react';
 import {
   Card,
   CardHeader,
   CardBody,
+  Chip,
   Image,
   Table,
   TableHeader,
@@ -14,9 +12,11 @@ import {
   TableCell,
   getKeyValue,
 } from '@nextui-org/react';
-import { COLS, ROWS } from '../../mocks';
+import TableComp from '../../components/Table';
+import MyChart from '../../components/MyChart';
+import CompareChart from '../../components/CompareChart';
 
-export default async function Dashboard() {
+const Dashboard = () => {
   return (
     <main>
       <div className="mt-12">
@@ -57,23 +57,8 @@ export default async function Dashboard() {
             <span className="flex font-bold ml-2 opacity-65">측정표 기록</span>
           </CardHeader>
           <CardBody className="overflow-visible py-2">
-            <div className="mt-5">
-              <Table removeWrapper aria-label="table with dynamic content">
-                <TableHeader columns={COLS}>
-                  {(column) => (
-                    <TableColumn key={column.key}>{column.label}</TableColumn>
-                  )}
-                </TableHeader>
-                <TableBody items={ROWS}>
-                  {(item) => (
-                    <TableRow key={item.key}>
-                      {(columnKey) => (
-                        <TableCell>{getKeyValue(item, columnKey)}</TableCell>
-                      )}
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
+            <div className="mt-4">
+              <TableComp />
             </div>
           </CardBody>
         </Card>
@@ -84,7 +69,9 @@ export default async function Dashboard() {
             </span>
           </CardHeader>
           <CardBody className="overflow-visible py-2">
-            <div className="mt-5"></div>
+            <div className="mt-4">
+              <MyChart />
+            </div>
           </CardBody>
         </Card>
         <Card className="py-4">
@@ -92,10 +79,13 @@ export default async function Dashboard() {
             <span className="flex font-bold ml-2 opacity-65">종합 평가</span>
           </CardHeader>
           <CardBody className="overflow-visible py-2">
-            <div className="mt-5"></div>
+            <div className="mt-4">
+              <CompareChart />
+            </div>
           </CardBody>
         </Card>
       </div>
     </main>
   );
-}
+};
+export default Dashboard;

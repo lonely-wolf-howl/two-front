@@ -24,18 +24,56 @@ export const COLS = [
 export const ROWS = [
   {
     key: '1',
-    date: '2024.02.22',
-    weight: '75',
-    fat: '15',
+    date: '24.02.22',
+    weight: '90',
+    fat: '10',
     muscle: '35',
     kcal: '1800',
   },
   {
     key: '2',
-    date: '2024.02.23',
-    weight: '85',
-    fat: '25',
+    date: '24.02.23',
+    weight: '70',
+    fat: '30',
     muscle: '45',
     kcal: '2000',
   },
+  {
+    key: '2',
+    date: '24.02.24',
+    weight: '80',
+    fat: '20',
+    muscle: '40',
+    kcal: '1900',
+  },
+];
+
+export const MY_CHART_DATA = [
+  {
+    date: '24.02.22',
+    weight: 90,
+    fat: 10,
+    muscle: 35,
+  },
+  {
+    date: '24.02.23',
+    weight: 70,
+    fat: 30,
+    muscle: 45,
+  },
+  {
+    date: '24.02.24',
+    weight: 80,
+    fat: 20,
+    muscle: 40,
+  },
+];
+
+export const COMPARE_CHART_DATA = [
+  { name: '내 체중', value: 80 },
+  { name: '회원 평균 체중', value: 72 },
+  { name: '내 체지방률', value: 20 },
+  { name: '회원 평균 체지방률', value: 23 },
+  { name: '내 골격근량', value: 40 },
+  { name: '회원 평균 골격근량', value: 31 },
 ];

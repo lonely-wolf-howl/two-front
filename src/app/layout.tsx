@@ -3,6 +3,7 @@ import './globals.css';
 import { Providers } from '../provider/providers';
 import { getServerSession } from 'next-auth';
 import SessionProvider from '../components/SessionProvider';
+import { Roboto } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: `TWO - Today's WorkOut`,
@@ -10,6 +11,11 @@ export const metadata: Metadata = {
 };
 
 export const BACKEND_URL = 'http://localhost:4000';
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
 
 export default async function RootLayout({
   children,
@@ -21,9 +27,11 @@ export default async function RootLayout({
   return (
     <html lang="en" className="light">
       <body>
-        <Providers>
-          <SessionProvider session={session}>{children}</SessionProvider>
-        </Providers>
+        <main className={roboto.className}>
+          <Providers>
+            <SessionProvider session={session}>{children}</SessionProvider>
+          </Providers>
+        </main>
       </body>
     </html>
   );
