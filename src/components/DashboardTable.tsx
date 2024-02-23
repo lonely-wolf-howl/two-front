@@ -9,19 +9,23 @@ import {
   TableCell,
   getKeyValue,
 } from '@nextui-org/react';
-import { COLS, ROWS } from '../mocks';
+import { COLS, ROWS } from '../mockdatas';
 
-const TableComp = () => {
+const DashboardTable = () => {
   return (
     <Table removeWrapper aria-label="table with dynamic content">
       <TableHeader columns={COLS}>
-        {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+        {(column) => (
+          <TableColumn key={column.key} className="text-default-500 font-bold">
+            {column.label}
+          </TableColumn>
+        )}
       </TableHeader>
       <TableBody items={ROWS}>
         {(item) => (
           <TableRow key={item.key}>
             {(columnKey) => (
-              <TableCell className="font-bold opacity-60">
+              <TableCell className="text-default-500 font-bold">
                 {getKeyValue(item, columnKey)}
               </TableCell>
             )}
@@ -31,4 +35,4 @@ const TableComp = () => {
     </Table>
   );
 };
-export default TableComp;
+export default DashboardTable;

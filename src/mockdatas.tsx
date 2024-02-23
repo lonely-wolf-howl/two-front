@@ -70,10 +70,10 @@ export const MY_CHART_DATA = [
 ];
 
 export const COMPARE_CHART_DATA = [
-  { name: '내 체중', value: 80 },
-  { name: '회원 평균 체중', value: 72 },
-  { name: '내 체지방률', value: 20 },
-  { name: '회원 평균 체지방률', value: 23 },
-  { name: '내 골격근량', value: 40 },
-  { name: '회원 평균 골격근량', value: 31 },
+  { name: '내 체중', value: 80, color: 'main' },
+  { name: '회원 평균 체중', value: 72, color: 'main' },
+  { name: '내 체지방률', value: 20, color: 'main' },
+  { name: '회원 평균 체지방률', value: 23, color: 'main' },
+  { name: '내 골격근량', value: 40, color: 'main' },
+  { name: '회원 평균 골격근량', value: 31, color: 'main' },
 ];

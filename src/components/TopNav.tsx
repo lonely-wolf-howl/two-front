@@ -12,9 +12,11 @@ import {
 import { BellIcon, ClockIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import { usePathname, useRouter } from 'next/navigation';
 import { Link } from '@nextui-org/react';
+import { getPathname } from '../constants';
 
-const HomeNav = () => {
+const TopNav = () => {
   const path = usePathname();
+  const pathname = getPathname(path);
 
   return (
     <Navbar
@@ -25,7 +27,7 @@ const HomeNav = () => {
       <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
         <div className="capitalize">
           <Typography variant="h6" className="text-black font-bold opacity-65">
-            예시
+            {pathname}
           </Typography>
         </div>
 
@@ -52,4 +54,4 @@ const HomeNav = () => {
     </Navbar>
   );
 };
-export default HomeNav;
+export default TopNav;

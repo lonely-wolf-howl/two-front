@@ -1,5 +1,6 @@
+import React from 'react';
 import SideNav from '../../components/SideNav';
-import HomeNav from '../../components/HomeNav';
+import TopNav from '../../components/TopNav';
 
 export default async function DashboardLayout({
   children,
@@ -10,7 +11,7 @@ export default async function DashboardLayout({
     <div>
       <SideNav />
       <div className="p-4 xl:ml-80">
-        <HomeNav />
+        <TopNav />
         {children}
       </div>
     </div>

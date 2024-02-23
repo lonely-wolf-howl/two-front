@@ -1,7 +1,7 @@
 'use client';
 
 import { AreaChart } from '@tremor/react';
-import { MY_CHART_DATA } from '../mocks';
+import { MY_CHART_DATA } from '../mockdatas';
 
 const MyChart = () => {
   return (

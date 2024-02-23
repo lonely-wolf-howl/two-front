@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Card,
   CardHeader,
@@ -12,9 +13,12 @@ import {
   TableCell,
   getKeyValue,
 } from '@nextui-org/react';
-import TableComp from '../../components/Table';
+import DashboardTable from '../../components/DashboardTable';
 import MyChart from '../../components/MyChart';
 import CompareChart from '../../components/CompareChart';
+import { DateRangePicker } from '@tremor/react';
+import CustomButton from '../../components/CustomButton';
+import CardTitle from '../../components/CardTitle';
 
 const Dashboard = () => {
   return (
@@ -53,20 +57,25 @@ const Dashboard = () => {
       </div>
       <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
         <Card className="py-4">
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-            <span className="flex font-bold ml-2 opacity-65">측정표 기록</span>
+          <CardHeader className="pb-0 pt-2 px-4 flex justify-between items-center">
+            <CardTitle text="기록" />
+            <DateRangePicker
+              className="max-w-xs"
+              enableSelect={false}
+              placeholder=""
+            />
+            <CustomButton text="조회" />
           </CardHeader>
           <CardBody className="overflow-visible py-2">
             <div className="mt-4">
-              <TableComp />
+              <DashboardTable />
             </div>
           </CardBody>
         </Card>
         <Card className="py-4">
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-            <span className="flex font-bold ml-2 opacity-65">
-              체성분 변화 기록
-            </span>
+          <CardHeader className="pb-0 pt-2 px-4 flex justify-between items-center">
+            <CardTitle text="체성분 변화" />
+            <CustomButton text="체성분 등록" />
           </CardHeader>
           <CardBody className="overflow-visible py-2">
             <div className="mt-4">
@@ -76,7 +85,7 @@ const Dashboard = () => {
         </Card>
         <Card className="py-4">
           <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-            <span className="flex font-bold ml-2 opacity-65">종합 평가</span>
+            <CardTitle text="비교 평가" />
           </CardHeader>
           <CardBody className="overflow-visible py-2">
             <div className="mt-4">
