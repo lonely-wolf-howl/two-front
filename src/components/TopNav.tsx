@@ -26,7 +26,7 @@ const TopNav = () => {
     >
       <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
         <div className="capitalize">
-          <Typography variant="h6" className="text-black font-bold opacity-65">
+          <Typography variant="h6" className="text-main font-bold">
             {pathname}
           </Typography>
         </div>

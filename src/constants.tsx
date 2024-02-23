@@ -11,13 +11,6 @@ export const NAV_ITEMS = [
     path: '/challenges',
     icon: <Icon icon="lucide:goal" width="24" height="24" />,
   },
-  {
-    title: '오운완',
-    path: '/workouts',
-    icon: (
-      <Icon icon="material-symbols:exercise-outline" width="24" height="24" />
-    ),
-  },
 ];
 
 export const getPathname = (path) => {
@@ -26,8 +19,6 @@ export const getPathname = (path) => {
     name = '체성분';
   } else if (path === '/challenges') {
     name = '도전';
-  } else if (path === '/workouts') {
-    name = '오운완';
   }
   return name;
 };

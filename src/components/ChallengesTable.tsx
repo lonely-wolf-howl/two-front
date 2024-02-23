@@ -40,7 +40,6 @@ export default function ChallengesTable() {
 
   const filteredItems = React.useMemo(() => {
     let filteredDatas = [...datas];
-
     if (
       statusFilter !== 'all' &&
       Array.from(statusFilter).length !== statusOptions.length
@@ -49,7 +48,6 @@ export default function ChallengesTable() {
         Array.from(statusFilter).includes(user.status)
       );
     }
-
     return filteredDatas;
   }, [datas, statusFilter]);
 
@@ -58,7 +56,6 @@ export default function ChallengesTable() {
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-
     return filteredItems.slice(start, end);
   }, [page, filteredItems, rowsPerPage]);
 
@@ -151,7 +148,7 @@ export default function ChallengesTable() {
             </Button>
           </div>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mt-2">
           <span className="text-default-500 font-bold text-small">
             전체 {datas.length}개의 도전
           </span>

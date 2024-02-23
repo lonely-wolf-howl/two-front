@@ -88,7 +88,7 @@ const Dashboard = () => {
             <CardTitle text="비교 평가" />
           </CardHeader>
           <CardBody className="overflow-visible py-2">
-            <div className="mt-4">
+            <div className="mt-8">
               <CompareChart />
             </div>
           </CardBody>
