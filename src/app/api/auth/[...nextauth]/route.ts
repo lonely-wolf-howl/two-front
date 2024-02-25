@@ -1,14 +1,25 @@
 import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 export const authOptions = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+    CredentialsProvider({
+      name: 'Google',
+      credentials: {},
+      async authorize(credentials, req) {
+        try {
+          const res = await fetch('http://localhost:4000/api/auth/google')
+          if (res.ok) {
+            return res;
+          }
+          return null;
+        } catch (error) {
+          console.error(error);
+        }
+      },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET || '',

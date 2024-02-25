@@ -1,5 +1,7 @@
 import { Icon } from '@iconify/react';
 
+export const BACKEND_URL = 'http://localhost:4000';
+
 export const NAV_ITEMS = [
   {
     title: '체성분',
