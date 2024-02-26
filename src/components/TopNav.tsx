@@ -10,13 +10,15 @@ import {
   Avatar,
 } from '@material-tailwind/react';
 import { BellIcon, ClockIcon, UserCircleIcon } from '@heroicons/react/24/solid';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { Link } from '@nextui-org/react';
 import { getPathname } from '../constants';
+import { useAuth } from '../hooks/useAuth.ts';
 
 const TopNav = () => {
   const path = usePathname();
   const pathname = getPathname(path);
+  const { isLoggedIn, logout } = useAuth();
 
   return (
     <Navbar
@@ -30,18 +32,29 @@ const TopNav = () => {
             {pathname}
           </Typography>
         </div>
-
         <div className="flex items-center">
-          <Link href="/signin">
-            <Button
-              variant="text"
-              className="hidden items-center gap-1 px-4 xl:flex normal-case text-main"
-            >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-              로그인
-            </Button>
-          </Link>
-
+          {isLoggedIn ? (
+            <Link href="/signin">
+              <Button
+                variant="text"
+                className="hidden items-center gap-1 px-4 xl:flex normal-case text-main"
+                onClick={logout}
+              >
+                <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+                로그아웃
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/signin">
+              <Button
+                variant="text"
+                className="hidden items-center gap-1 px-4 xl:flex normal-case text-main"
+              >
+                <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+                로그인
+              </Button>
+            </Link>
+          )}
           <Menu>
             <MenuHandler>
               <IconButton variant="text">
