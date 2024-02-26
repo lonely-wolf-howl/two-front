@@ -59,10 +59,10 @@ export function useAuth() {
     };
 
     const accessToken = getCookie('accessToken');
-    if (!accessToken && isLoggedIn) {
+    if (!accessToken && refreshToken) {
       refreshAccessToken();
     }
   }, []);
 
-  return { isLoggedIn, logout };
+  return { isLoggedIn, logout, getCookie };
 }
