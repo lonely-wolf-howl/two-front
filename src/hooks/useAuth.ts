@@ -38,6 +38,8 @@ export function useAuth() {
     const refreshAccessToken = async () => {
       try {
         const refreshToken = getCookie('refreshToken');
+        if (!refreshToken) return null;
+
         const response = await fetch('http://localhost:4000/api/auth/refresh', {
           method: 'POST',
           credentials: 'include',
@@ -51,15 +53,15 @@ export function useAuth() {
           document.cookie = `accessToken=${refreshedAccessToken}; path=/;`;
           setIsLoggedIn(true);
         } else {
-          console.error('refresh token request failed');
+          console.error('refresh token request failed.');
         }
       } catch (error) {
-        console.error('error refreshing token:', error);
+        console.error(error);
       }
     };
 
     const accessToken = getCookie('accessToken');
-    if (!accessToken && refreshToken) {
+    if (!accessToken) {
       refreshAccessToken();
     }
   }, []);
