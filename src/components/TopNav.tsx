@@ -14,6 +14,7 @@ import { usePathname } from 'next/navigation';
 import { Link } from '@nextui-org/react';
 import { getPathname } from '../constants';
 import { useAuth } from '../hooks/useAuth.ts';
+import { Icon } from '@iconify/react';
 
 const TopNav = () => {
   const path = usePathname();
@@ -40,7 +41,7 @@ const TopNav = () => {
                 className="hidden items-center gap-1 px-4 xl:flex normal-case text-main"
                 onClick={logout}
               >
-                <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+                <Icon icon="basil:logout-solid" width="24" height="24" />
                 로그아웃
               </Button>
             </Link>
@@ -50,7 +51,7 @@ const TopNav = () => {
                 variant="text"
                 className="hidden items-center gap-1 px-4 xl:flex normal-case text-main"
               >
-                <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+                <Icon icon="basil:login-solid" width="24" height="24" />
                 로그인
               </Button>
             </Link>

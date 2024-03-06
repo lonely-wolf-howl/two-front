@@ -1,22 +1,9 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Chip,
-  Image,
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  getKeyValue,
-} from '@nextui-org/react';
+import { Card, CardHeader, CardBody } from '@nextui-org/react';
 import DashboardTable from '../../components/DashboardTable';
 import MyChart from '../../components/MyChart';
 import CompareChart from '../../components/CompareChart';
 import { DateRangePicker } from '@tremor/react';
-import CustomButton from '../../components/CustomButton';
+import MyButton from '../../components/MyButton';
 import CardTitle from '../../components/CardTitle';
 
 const Dashboard = () => {
@@ -63,7 +50,7 @@ const Dashboard = () => {
               enableSelect={false}
               placeholder=""
             />
-            <CustomButton text="조회" />
+            <MyButton text="조회" />
           </CardHeader>
           <CardBody className="overflow-visible py-2">
             <div className="mt-4">
@@ -74,7 +61,7 @@ const Dashboard = () => {
         <Card className="py-4">
           <CardHeader className="pb-0 pt-2 px-4 flex justify-between items-center">
             <CardTitle text="체성분 변화" />
-            <CustomButton text="체성분 등록" />
+            <MyButton text="체성분 등록" />
           </CardHeader>
           <CardBody className="overflow-visible py-2">
             <div className="mt-4">
