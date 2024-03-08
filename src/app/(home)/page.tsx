@@ -1,10 +1,10 @@
 import { Card, CardHeader, CardBody } from '@nextui-org/react';
-import DashboardTable from '../../components/DashboardTable';
-import MyChart from '../../components/MyChart';
-import CompareChart from '../../components/CompareChart';
+import DashboardTable from '@components/DashboardTable';
+import MyChart from '@components/MyChart';
+import CompareChart from '@components/CompareChart';
 import { DateRangePicker } from '@tremor/react';
-import MyButton from '../../components/MyButton';
-import CardTitle from '../../components/CardTitle';
+import MyButton from '@components/MyButton';
+import CardTitle from '@components/CardTitle';
 
 const Dashboard = () => {
   return (

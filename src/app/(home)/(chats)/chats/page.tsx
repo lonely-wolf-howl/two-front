@@ -7,13 +7,25 @@ import {
   CardBody,
   Input,
   ScrollShadow,
-  User,
 } from '@nextui-org/react';
-import CardTitle from '../../../../components/CardTitle';
-import MyButton from '../../../../components/MyButton';
+import CardTitle from '@components/CardTitle';
+import MyButton from '@components/MyButton';
 import { Icon } from '@iconify/react';
+import Message from '@components/Message';
+import { useForm } from 'react-hook-form';
+import useMutation from '@hooks/useMutation.ts';
+
+interface MessageForm {
+  message: string;
+}
 
 const Chats = () => {
+  const { register, handleSubmit, reset } = useForm<MessageForm>();
+  const onValid = (form: MessageForm) => {
+    reset();
+  };
+  const [] = useMutation(``);
+
   return (
     <main>
       <div className="mt-12">
@@ -24,14 +36,22 @@ const Chats = () => {
             </CardHeader>
             <CardBody className="overflow-visible py-2">
               <ScrollShadow className="h-[400px] mt-5">
-                <User
-                  name="김호용"
-                  description="hoyong@gmail.com"
-                  avatarProps={{
-                    src: '/images/nestjs.png',
-                  }}
-                  className="hover:bg-zinc-100 text-main px-5 py-2"
-                />
+                <div className="py-5 divide-y-[1px]">
+                  {[1, 2, 3, 4, 5, 6].map((id) => (
+                    <div
+                      key={id}
+                      className="flex px-4 cursor-pointer py-3 items-center space-x-3 hover:bg-zinc-100"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-slate-300" />
+                      <div>
+                        <p className="text-gray-700">Steve Jobs</p>
+                        <p className="text-sm  text-gray-500">
+                          See you tomorrow in the corner at 2pm!
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </ScrollShadow>
             </CardBody>
           </Card>
@@ -40,35 +60,28 @@ const Chats = () => {
               <CardTitle text="대화창" />
             </CardHeader>
             <CardBody className="overflow-visible py-2">
-              <div>
-                <ScrollShadow className="h-[400px] mt-5">
-                  <div className="flex flex-col items-start">
-                    <div className="w-full flex justify-end">
-                      <div className="shadow-md p-4 block rounded-lg bg-main text-white mb-2">
-                        <span className="inline-block">안녕!</span>
-                      </div>
-                    </div>
-                    <div className="w-full flex justify-end">
-                      <div className="shadow-md p-4 block rounded-lg bg-main text-white mb-2">
-                        <span className="inline-block">
-                          나랑 같이 도전할래?
-                        </span>
-                      </div>
-                    </div>
-                    <div className="w-full flex justify-start">
-                      <div className="shadow-md p-4 block rounded-lg bg-main text-white mb-2">
-                        <span className="inline-block">그래 좋아</span>
-                      </div>
-                    </div>
-                  </div>
-                </ScrollShadow>
-              </div>
-              <div className="flex items-center mt-5">
-                <Input type="text" className="mr-2" size="sm" radius="md" />
+              <ScrollShadow className="h-[400px] mt-5">
+                <div className="px-4 py-5 space-y-4">
+                  <Message message="Hi, How much are you selling for?" />
+                  <Message message="I want 20,000" reversed />
+                  <Message message="You are crazy" />
+                </div>
+              </ScrollShadow>
+              <form
+                onSubmit={handleSubmit(onValid)}
+                className="flex items-center mt-5"
+              >
+                <Input
+                  type="text"
+                  {...register('message', { required: true })}
+                  className="mr-2"
+                  size="sm"
+                  radius="md"
+                />
                 <Button className="bg-main text-white" size="lg">
                   <Icon icon="tabler:send" width="24" height="24" />
                 </Button>
-              </div>
+              </form>
             </CardBody>
           </Card>
         </div>

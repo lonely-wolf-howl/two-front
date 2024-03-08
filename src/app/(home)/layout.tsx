@@ -1,6 +1,6 @@
 import React from 'react';
-import SideNav from '../../components/SideNav';
-import TopNav from '../../components/TopNav';
+import SideNav from '@components/SideNav';
+import TopNav from '@components/TopNav';
 
 export default async function DashboardLayout({
   children,

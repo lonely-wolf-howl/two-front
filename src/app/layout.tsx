@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Providers } from '../provider/providers';
 import { getServerSession } from 'next-auth';
-import SessionProvider from '../components/SessionProvider';
+import SessionProvider from '@components/SessionProvider';
 import { Roboto } from 'next/font/google';
 
 export const metadata: Metadata = {
