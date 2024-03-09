@@ -1,4 +1,4 @@
-import { spreader } from '../utils/spreader';
+import { spreader } from '@utils/spreader';
 
 interface MessageProps {
   imageUrl?: string;

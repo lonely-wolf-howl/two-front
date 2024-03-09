@@ -1,89 +1,95 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Button, Card, CardBody, Image, Input, Link } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
+import FormInput from '@components/FormInput';
+import FormButton from '@components/FormButton';
+import SocialLogin from '@components/SocialLogin';
+import { useForm, FieldErrors } from 'react-hook-form';
+import { useState } from 'react';
+
+interface SigninForm {
+  email: string;
+  password: string;
+}
 
 export default function Signin() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<SigninForm>();
+  const onValid = (data: SigninForm) => {
+    setLoading(true);
+    fetchSignin(data);
+    reset();
+    setLoading(false);
+  };
+  const onInvalid = (errors: FieldErrors) => {
+    console.log(errors);
+  };
 
-  const handleSignin = async () => {
+  const fetchSignin = async (data) => {
     try {
       const response = await fetch('http://localhost:4000/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
+        const result = await response.json();
         const {
           accessToken,
           accessTokenExpiresIn,
           refreshToken,
           refreshTokenExpiresIn,
-        } = await response.json();
+        } = result.data;
 
         document.cookie = `accessToken=${accessToken}; expires=${accessTokenExpiresIn}; path=/;`;
         document.cookie = `refreshToken=${refreshToken}; expires=${refreshTokenExpiresIn}; path=/;`;
 
-        router.push('/');
+        router.push('/dashboard');
       } else {
-        console.error('signin fail.');
+        console.error('SIGNIN ERROR');
       }
     } catch (error) {
-      console.error('error during  signin process', error);
+      console.error('SIGNIN ERROR: ', error);
     }
   };
 
   return (
-    <main className="flex flex-col justify-center items-center h-screen">
-      <div>
-        <Image
-          alt="Card background"
-          className="object-cover rounded-full shadow-lg"
-          src="images/logo.png"
-          width={100}
-        />
+    <div className="flex flex-col gap-10 px-6 py-8">
+      <div className="flex flex-col gap-2 *font-medium">
+        <h1 className="text-2xl">로그인</h1>
       </div>
-      <div className="w-full max-w-md">
-        <Card className="mt-10 px-5">
-          <CardBody className="overflow-visible py-5">
-            <Input
-              type="email"
-              variant="flat"
-              label="이메일"
-              className="py-3"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Input
-              type="password"
-              variant="flat"
-              label="비밀번호"
-              className="py-3"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <p className="text-default-500 text-center py-3">
-              계정이 없으신가요?{' '}
-              <Link showAnchorIcon href="/signup">
-                회원가입
-              </Link>
-            </p>
-            <Button
-              size="lg"
-              className="bg-main text-white mt-3 mb-3"
-              onClick={handleSignin}
-            >
-              로그인
-            </Button>
-          </CardBody>
-        </Card>
-      </div>
-    </main>
+      <form
+        onSubmit={handleSubmit(onValid, onInvalid)}
+        className="flex flex-col gap-3"
+      >
+        <div>
+          <FormInput
+            register={register('email', {
+              required: '이메일을 입력해 주세요.',
+            })}
+            type="email"
+            label="이메일"
+          />
+          <FormInput
+            register={register('password', {
+              required: '비밀번호를 입력해 주세요.',
+            })}
+            type="password"
+            label="비밀번호"
+          />
+        </div>
+        <FormButton loading={loading} text="로그인" />
+      </form>
+      <SocialLogin />
+    </div>
   );
 }

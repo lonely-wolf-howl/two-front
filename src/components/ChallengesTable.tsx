@@ -23,7 +23,7 @@ import { PlusIcon } from './icons/PlusIcon';
 import { VerticalDotsIcon } from './icons/VerticalDotsIcon';
 import { ChevronDownIcon } from './icons/ChevronDownIcon';
 import { columns, datas, statusOptions } from '../mockdatas-challenge';
-import { capitalize } from '../utils/capitalize';
+import { capitalize } from '@utils/capitalize';
 
 const statusColorMap: Record<string, ChipProps['color']> = {
   공개: 'success',

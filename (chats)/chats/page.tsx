@@ -29,7 +29,7 @@ const Chats = () => {
   return (
     <main>
       <div className="mt-12">
-        <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-2">
+        <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 grid-cols-2">
           <Card className="py-4">
             <CardHeader className="pb-0 pt-2 px-4 flex justify-between items-center">
               <CardTitle text="대화 목록" />

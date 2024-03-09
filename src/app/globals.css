@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  a {
+    @apply text-main;
+  }
+}
+
+@layer components {
+  .primary-btn {
+    @apply w-full bg-main text-white font-medium py-2.5 rounded-xl text-center hover:bg-opacity-80 transition-opacity duration-300;
+  }
+}

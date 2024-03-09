@@ -22,12 +22,8 @@ export const NAV_ITEMS = [
 
 export const getPathname = (path) => {
   let name = '';
-  if (path === '/') {
-    name = '체성분';
-  } else if (path === '/challenges') {
-    name = '도전';
-  } else if (path === '/chats') {
-    name = '대화 목록';
+  if (path === '/me') {
+    name = '내 정보';
   }
   return name;
 };

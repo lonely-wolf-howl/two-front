@@ -10,7 +10,7 @@ const Dashboard = () => {
   return (
     <main>
       <div className="mt-12">
-        <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mb-12 grid gap-y-10 gap-x-6 grid-cols-4">
           <Card className="py-4 bg-main">
             <CardBody className="overflow-visible py-2 text-white">
               <span className="flex font-bold ml-2">
@@ -41,7 +41,7 @@ const Dashboard = () => {
           </Card>
         </div>
       </div>
-      <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 grid-cols-3">
         <Card className="py-4">
           <CardHeader className="pb-0 pt-2 px-4 flex justify-between items-center">
             <CardTitle text="기록" />
