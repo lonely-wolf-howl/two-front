@@ -1,86 +1,78 @@
 import { Card, CardHeader, CardBody } from '@nextui-org/react';
-import DashboardTable from '@components/DashboardTable';
 import MyChart from '@components/MyChart';
 import CompareChart from '@components/CompareChart';
-import { DateRangePicker } from '@tremor/react';
 import MyButton from '@components/MyButton';
 import CardTitle from '@components/CardTitle';
 
-const Dashboard = () => {
+export default function Dashboard() {
   return (
-    <main>
-      <div className="mt-12">
-        <div className="mb-12 grid gap-y-10 gap-x-6 grid-cols-4">
-          <Card className="py-4 bg-main">
-            <CardBody className="overflow-visible py-2 text-white">
-              <span className="flex font-bold ml-2">
-                체중. &nbsp;&nbsp;80 KG
-              </span>
-            </CardBody>
-          </Card>
-          <Card className="py-4 bg-main">
-            <CardBody className="overflow-visible py-2 text-white">
-              <span className="flex font-bold ml-2">
-                체지방률. &nbsp;&nbsp;20 %
-              </span>
-            </CardBody>
-          </Card>
-          <Card className="py-4 bg-main">
-            <CardBody className="overflow-visible py-2 text-white">
-              <span className="flex font-bold ml-2">
-                골격근량. &nbsp;&nbsp;40 KG
-              </span>
-            </CardBody>
-          </Card>
-          <Card className="py-4 bg-main">
-            <CardBody className="overflow-visible py-2 text-white">
-              <span className="flex font-bold ml-2">
-                기초대사량. &nbsp;&nbsp;1900 Kcal
-              </span>
+    <div className="py-4 px-4">
+      <Card className="mt-5 w-full max-w-xl">
+        <CardBody>
+          <div className="mt-5 mb-5 flex justify-around">
+            <div className="flex flex-col items-center">
+              <div className="text-main font-bold flex items-center justify-center">
+                <span>80 KG</span>
+              </div>
+              <span className="text-sm font-medium mt-2">체중</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="text-main font-bold flex items-center justify-center">
+                <span>20 %</span>
+              </div>
+              <span className="text-sm font-medium mt-2">체지방률</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="text-main font-bold flex items-center justify-center">
+                <span>40 KG</span>
+              </div>
+              <span className="text-sm font-medium mt-2">골격근량</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="text-main font-bold flex items-center justify-center">
+                <span>1900 Kcal</span>
+              </div>
+              <span className="text-sm font-medium mt-2">기초대사량</span>
+            </div>
+          </div>
+        </CardBody>
+      </Card>
+      <div className="mt-2">
+        <div className="flex items-center">
+          <Card className="mt-5 w-full max-w-xl">
+            <CardBody className="flex flex-row space-x-4">
+              <MyButton text="체성분 검색" />
+              <MyButton text="체성분 등록" />
             </CardBody>
           </Card>
         </div>
       </div>
-      <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 grid-cols-3">
-        <Card className="py-4">
-          <CardHeader className="pb-0 pt-2 px-4 flex justify-between items-center">
-            <CardTitle text="기록" />
-            <DateRangePicker
-              className="max-w-xs"
-              enableSelect={false}
-              placeholder=""
-            />
-            <MyButton text="조회" />
-          </CardHeader>
-          <CardBody className="overflow-visible py-2">
-            <div className="mt-4">
-              <DashboardTable />
-            </div>
-          </CardBody>
-        </Card>
-        <Card className="py-4">
-          <CardHeader className="pb-0 pt-2 px-4 flex justify-between items-center">
-            <CardTitle text="체성분 변화" />
-            <MyButton text="체성분 등록" />
-          </CardHeader>
-          <CardBody className="overflow-visible py-2">
-            <div className="mt-4">
+      <div className="mt-2">
+        <div className="flex items-center">
+          <Card className="mt-5 w-full max-w-xl">
+            <CardHeader className="pt-4 px-4 flex justify-between items-center">
+              <CardTitle text="체성분 변화" />
+            </CardHeader>
+            <CardBody className="overflow-visible py-2">
               <MyChart />
-            </div>
-          </CardBody>
-        </Card>
-        <Card className="py-4">
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-            <CardTitle text="비교 평가" />
-          </CardHeader>
-          <CardBody className="overflow-visible py-2">
-            <div className="mt-8">
-              <CompareChart />
-            </div>
-          </CardBody>
-        </Card>
+            </CardBody>
+          </Card>
+        </div>
       </div>
-    </main>
+      <div className="mt-2">
+        <div className="flex items-center">
+          <Card className="mt-5 w-full max-w-xl">
+            <CardHeader className="pt-4 px-4 flex-col items-start">
+              <CardTitle text="비교 평가" />
+            </CardHeader>
+            <CardBody className="overflow-visible py-2">
+              <div>
+                <CompareChart />
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+    </div>
   );
-};
-export default Dashboard;
+}

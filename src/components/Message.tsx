@@ -18,7 +18,7 @@ export default function Message({ message, imageUrl, reversed }: MessageProps) {
       <div
         className={spreader(
           'w-1/2 text-sm p-2 rounded-md',
-          reversed ? 'bg-main' : 'bg-gray-400'
+          reversed ? 'bg-main' : 'bg-gray-800'
         )}
       >
         <p className="text-white">{message}</p>

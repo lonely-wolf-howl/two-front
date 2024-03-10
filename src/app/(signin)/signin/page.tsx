@@ -6,6 +6,7 @@ import FormButton from '@components/FormButton';
 import SocialLogin from '@components/SocialLogin';
 import { useForm, FieldErrors } from 'react-hook-form';
 import { useState } from 'react';
+import axios from 'axios';
 
 interface SigninForm {
   email: string;
@@ -33,22 +34,25 @@ export default function Signin() {
 
   const fetchSignin = async (data) => {
     try {
-      const response = await fetch('http://localhost:4000/api/auth/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await axios.post(
+        'http://localhost:4000/api/auth/signin',
+        data,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-      if (response.ok) {
-        const result = await response.json();
+      if (response.status === 201) {
+        const result = await response.data;
         const {
           accessToken,
           accessTokenExpiresIn,
           refreshToken,
           refreshTokenExpiresIn,
-        } = result.data;
+        } = await result.data;
 
         document.cookie = `accessToken=${accessToken}; expires=${accessTokenExpiresIn}; path=/;`;
         document.cookie = `refreshToken=${refreshToken}; expires=${refreshTokenExpiresIn}; path=/;`;
@@ -58,7 +62,7 @@ export default function Signin() {
         console.error('SIGNIN ERROR');
       }
     } catch (error) {
-      console.error('SIGNIN ERROR: ', error);
+      console.error('SIGNIN AXIOS ERROR: ', error);
     }
   };
 

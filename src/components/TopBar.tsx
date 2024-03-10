@@ -8,7 +8,7 @@ export default function TopBar() {
   const pathname = getPathname(path);
 
   return (
-    <div className="bg-main w-full text-lg font-bold py-4 fixed top-0 justify-center flex items-center">
+    <div className="bg-main w-full max-w-xl text-lg font-bold py-4 fixed top-0 justify-center flex items-center">
       {pathname}
     </div>
   );

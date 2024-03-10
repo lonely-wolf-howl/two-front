@@ -3,6 +3,7 @@
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@hooks/useAuth.ts';
+import axios from 'axios';
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
@@ -11,21 +12,21 @@ export default function Profile() {
   useEffect(() => {
     const getMe = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/users/me', {
-          method: 'GET',
+        const response = await axios.get('http://localhost:4000/api/users/me', {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${getCookie('accessToken')}`,
           },
         });
 
-        if (response.ok) {
-          const result = await response.json();
+        if (response.status === 200) {
+          const result = await response.data;
           setUserData(result.data);
         } else {
           console.error('GET ME ERROR');
         }
       } catch (error) {
-        console.error('GET ME ERROR:', error);
+        console.error('GET ME AXIOS ERROR:', error);
       }
     };
 
@@ -41,7 +42,7 @@ export default function Profile() {
           <span className="text-sm text-gray-400">프로필 수정하기</span>
         </div>
       </div>
-      <Card className="mt-5">
+      <Card className="mt-5 w-full max-w-xl">
         <CardBody>
           <div className="mt-5 mb-5 flex justify-around">
             <div className="flex flex-col items-center">
@@ -66,8 +67,8 @@ export default function Profile() {
         </CardBody>
       </Card>
       <div className="mt-2">
-        <div className="flex space-x-4 items-center">
-          <Card className="mt-5 w-full">
+        <div className="flex items-center">
+          <Card className="mt-5 w-full max-w-xl">
             <CardBody>
               <div className="mt-5 mb-5 flex justify-center">
                 <h1>현재 참여중인 도전이 없습니다.</h1>
@@ -77,13 +78,13 @@ export default function Profile() {
         </div>
       </div>
       <div className="mt-2">
-        <div className="flex space-x-4 items-center">
-          <Card className="mt-5 w-full">
+        <div className="flex items-center">
+          <Card className="mt-5 w-full max-w-xl">
             <CardHeader className="mt-2 px-4 flex justify-between items-center">
               내 친구 목록
             </CardHeader>
             <CardBody className="pb-6">
-              <div className="h-[320px] mb-4">
+              <div className="h-[280px] mb-4">
                 <div>
                   {[1, 2, 3, 4, 5, 6, 7, 8].map((id) => (
                     <div

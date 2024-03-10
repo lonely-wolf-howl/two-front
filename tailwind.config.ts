@@ -42,11 +42,7 @@ const config: Config = {
             DEFAULT: '#e5e7eb',
           },
           content: {
-            subtle: '#9ca3af',
-            DEFAULT: '#6b7280',
-            emphasis: '#374151',
-            strong: '#111827',
-            inverted: '#ffffff',
+            DEFAULT: '#ffffff',
           },
         },
       },
