@@ -1,29 +1,75 @@
 'use client';
 
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  Input,
-  ScrollShadow,
-} from '@nextui-org/react';
-import MyButton from '@components/MyButton';
-import { Icon } from '@iconify/react';
+import { Button, Input } from '@nextui-org/react';
 import Message from '@components/Message';
 import { useForm } from 'react-hook-form';
-import useMutation from '@hooks/useMutation.ts';
+import { useEffect, useState } from 'react';
+import MyButton from '@components/MyButton';
+import axios from 'axios';
+import { useAuth } from '@hooks/useAuth.ts';
+import io from 'socket.io-client';
+
+interface Params {
+  params: { id: string };
+}
 
 interface MessageForm {
   message: string;
 }
 
-export default function ChatsDetail() {
+export default function ChatsDetail({ params }: Params) {
+  const { id: chatRoomId } = params;
+  const [loading, setLoading] = useState(false);
+  const { getCookie } = useAuth();
   const { register, handleSubmit, reset } = useForm<MessageForm>();
   const onValid = (form: MessageForm) => {
+    setLoading(true);
+    // fetchPostMessage(form, id);
     reset();
+    setLoading(false);
   };
-  const [] = useMutation(``);
+
+  useEffect(() => {
+    const options = {
+      transports: ['websocket'],
+      auth: `${getCookie('accessToken')}`,
+      extraHeaders: { id: chatRoomId },
+    };
+    const socket = io(`http://localhost:8080/chats`, options);
+    console.log(socket);
+
+    socket.on('connect', () => {
+      console.log('WebSocket connected.');
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const fetchPostMessage = async (form, id) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/api/chats/${id}/message`,
+        form,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        // ...
+      } else {
+        console.error('POST MESSAGE ERROR');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="py-4 px-4">
@@ -41,11 +87,10 @@ export default function ChatsDetail() {
             size="sm"
             radius="md"
           />
-          <Button className="bg-main text-white" size="lg">
-            <Icon icon="tabler:send" width="24" height="24" />
-          </Button>
+          <MyButton loading={loading} />
         </form>
       </div>
     </div>
   );
+  z;
 }

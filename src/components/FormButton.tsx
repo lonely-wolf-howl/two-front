@@ -9,7 +9,7 @@ export default function FormButton({ loading, text }: FormButtonProps) {
       disabled={loading}
       className="primary-btn disabled:bg-neutral-400 disabled:text-300 disabled:cursor-not-allowed"
     >
-      {loading ? '회원가입 진행 중...' : text}
+      {loading ? '진행 중...' : text}
     </button>
   );
 }

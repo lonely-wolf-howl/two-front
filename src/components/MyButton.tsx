@@ -1,9 +1,20 @@
-import { Button } from '@nextui-org/react';
+import { Icon } from '@iconify/react';
 
-export default function MyButton({ text }: { text: string }) {
+interface MyButtonProps {
+  loading: boolean;
+}
+
+export default function MyButton({ loading }: MyButtonProps) {
   return (
-    <Button className="bg-main text-white font-medium" size="md">
-      {text}
-    </Button>
+    <button
+      disabled={loading}
+      className="disabled:bg-neutral-400 disabled:text-300 disabled:cursor-not-allowed"
+    >
+      {loading ? (
+        '...'
+      ) : (
+        <Icon icon="tabler:send" width="30" height="30" />
+      )}
+    </button>
   );
 }

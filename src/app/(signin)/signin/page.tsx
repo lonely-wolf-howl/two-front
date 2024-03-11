@@ -38,7 +38,6 @@ export default function Signin() {
         'http://localhost:4000/api/auth/signin',
         data,
         {
-          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -62,7 +61,7 @@ export default function Signin() {
         console.error('SIGNIN ERROR');
       }
     } catch (error) {
-      console.error('SIGNIN AXIOS ERROR: ', error);
+      console.error(error);
     }
   };
 

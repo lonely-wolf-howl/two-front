@@ -41,8 +41,40 @@ export default function Dashboard() {
         <div className="flex items-center">
           <Card className="mt-5 w-full max-w-xl">
             <CardBody className="flex flex-row space-x-4">
-              <MyButton text="체성분 검색" />
-              <MyButton text="체성분 등록" />
+              <button className="primary-btn flex flex-row justify-center items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 mr-2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                  />
+                </svg>
+                기록 검색
+              </button>
+              <button className="primary-btn flex flex-row justify-center items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 mr-2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                  />
+                </svg>
+                체성분 등록
+              </button>
             </CardBody>
           </Card>
         </div>
@@ -54,7 +86,9 @@ export default function Dashboard() {
               <CardTitle text="체성분 변화" />
             </CardHeader>
             <CardBody className="overflow-visible py-2">
-              <MyChart />
+              <div>
+                <MyChart />
+              </div>
             </CardBody>
           </Card>
         </div>

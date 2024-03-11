@@ -3,7 +3,7 @@
 import { AreaChart } from '@tremor/react';
 import { MY_CHART_DATA } from '../mockdatas';
 
-const MyChart = () => {
+export default function MyChart() {
   return (
     <AreaChart
       className="h-72"
@@ -14,5 +14,4 @@ const MyChart = () => {
       yAxisWidth={30}
     />
   );
-};
-export default MyChart;
+}

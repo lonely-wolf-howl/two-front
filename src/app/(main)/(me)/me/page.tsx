@@ -26,10 +26,9 @@ export default function Profile() {
           console.error('GET ME ERROR');
         }
       } catch (error) {
-        console.error('GET ME AXIOS ERROR:', error);
+        console.error(error);
       }
     };
-
     getMe();
   }, []);
 
