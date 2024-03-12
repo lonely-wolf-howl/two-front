@@ -32,11 +32,9 @@ export default function ChatsDetail({ params }: Params) {
   useEffect(() => {
     const options = {
       transports: ['websocket'],
-      auth: `${getCookie('accessToken')}`,
-      extraHeaders: { id: chatRoomId },
+      extraHeaders: { id: chatRoomId, token: getCookie('accessToken') },
     };
     const socket = io(`http://localhost:8080/chats`, options);
-    console.log(socket);
 
     socket.on('connect', () => {
       console.log('WebSocket connected.');
