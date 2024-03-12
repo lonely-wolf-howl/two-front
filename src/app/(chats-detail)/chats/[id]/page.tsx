@@ -14,17 +14,25 @@ interface Params {
 }
 
 interface MessageForm {
+  userId: string;
   message: string;
 }
 
 export default function ChatsDetail({ params }: Params) {
-  const { id: chatRoomId } = params;
+  let { id: chatRoomId } = params;
+  chatRoomId = 'f33c1d86-5718-4fcb-b550-5b9a950a44fc';
+  const [socket, setSocket] = useState(undefined);
   const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<MessageForm[]>([]);
+  const [userId, setUserId] = useState(new Date());
   const { getCookie } = useAuth();
+  const accessToken = getCookie('accessToken');
   const { register, handleSubmit, reset } = useForm<MessageForm>();
-  const onValid = (form: MessageForm) => {
+
+  const onValid = (message: MessageForm) => {
     setLoading(true);
-    // fetchPostMessage(form, id);
+    socket.emit('message', { ...message, userId });
+    setMessages((prev) => [...prev, { ...message, userId }]);
     reset();
     setLoading(false);
   };
@@ -32,12 +40,13 @@ export default function ChatsDetail({ params }: Params) {
   useEffect(() => {
     const options = {
       transports: ['websocket'],
-      extraHeaders: { id: chatRoomId, token: getCookie('accessToken') },
+      query: { id: chatRoomId, token: accessToken },
     };
     const socket = io(`http://localhost:8080/chats`, options);
+    setSocket(socket);
 
     socket.on('connect', () => {
-      console.log('WebSocket connected.');
+      console.log('WEBSOCKET CONNECTED!');
     });
 
     return () => {
@@ -45,36 +54,18 @@ export default function ChatsDetail({ params }: Params) {
     };
   }, []);
 
-  const fetchPostMessage = async (form, id) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:4000/api/chats/${id}/message`,
-        form,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      );
-
-      if (response.status === 201) {
-        // ...
-      } else {
-        console.error('POST MESSAGE ERROR');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div className="py-4 px-4">
       <div className="py-6 space-y-3">
-        <Message message="Hi, How much are you selling for?" />
-        <Message message="I want 20,000" reversed />
-        <Message message="You are crazy" />
+        {messages.map((message, index) => {
+          return (
+            <Message
+              key={index}
+              message={message.message}
+              reversed={message.userId === userId}
+            />
+          );
+        })}
       </div>
       <div className="fixed w-full mx-auto max-w-md bottom-0 left-0 right-0 px-4 pb-4 opacity-90">
         <form onSubmit={handleSubmit(onValid)} className="flex items-center">
@@ -90,5 +81,4 @@ export default function ChatsDetail({ params }: Params) {
       </div>
     </div>
   );
-  z;
 }
