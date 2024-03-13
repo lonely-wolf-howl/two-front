@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { parseCookies, destroyCookie, setCookie } from 'nookies';
 
 export function useAuth() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -8,7 +9,8 @@ export function useAuth() {
   }, []);
 
   const checkLoginStatus = async () => {
-    const accessToken = getCookie('accessToken');
+    const cookies = parseCookies();
+    const accessToken = cookies.accessToken;
     if (accessToken) {
       setIsLoggedIn(true);
     } else {
@@ -17,54 +19,48 @@ export function useAuth() {
   };
 
   const logout = () => {
-    document.cookie =
-      'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    destroyCookie(null, 'accessToken');
     setIsLoggedIn(false);
   };
 
-  const getCookie = (name) => {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split('; ');
-    for (const cookie of cookies) {
-      const [cookieName, cookieValue] = cookie.split('=');
-      if (cookieName === name) {
-        return cookieValue;
+  const refreshAccessToken = async () => {
+    try {
+      const cookies = parseCookies();
+      const refreshToken = cookies.refreshToken;
+      if (!refreshToken) return null;
+
+      const response = await fetch('http://localhost:4000/api/auth/refresh', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      });
+      if (response.ok) {
+        const { refreshedAccessToken } = await response.json();
+        setCookie(null, 'accessToken', refreshedAccessToken, { path: '/' });
+        setIsLoggedIn(true);
+      } else {
+        console.error('refresh token request failed.');
       }
+    } catch (error) {
+      console.error(error);
     }
-    return null;
   };
 
   useEffect(() => {
-    const refreshAccessToken = async () => {
-      try {
-        const refreshToken = getCookie('refreshToken');
-        if (!refreshToken) return null;
-
-        const response = await fetch('http://localhost:4000/api/auth/refresh', {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${refreshToken}`,
-          },
-        });
-        if (response.ok) {
-          const { refreshedAccessToken } = await response.json();
-          document.cookie = `accessToken=${refreshedAccessToken}; path=/;`;
-          setIsLoggedIn(true);
-        } else {
-          console.error('refresh token request failed.');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const accessToken = getCookie('accessToken');
+    const cookies = parseCookies();
+    const accessToken = cookies.accessToken;
     if (!accessToken) {
       refreshAccessToken();
     }
   }, []);
 
-  return { isLoggedIn, logout, getCookie };
+  const getAccessToken = () => {
+    const cookies = parseCookies();
+    return cookies.accessToken;
+  };
+
+  return { isLoggedIn, logout, getAccessToken };
 }

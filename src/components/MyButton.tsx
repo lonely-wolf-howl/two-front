@@ -8,7 +8,7 @@ export default function MyButton({ loading }: MyButtonProps) {
   return (
     <button
       disabled={loading}
-      className="disabled:bg-neutral-400 disabled:text-300 disabled:cursor-not-allowed"
+      className="disabled:text-300 disabled:cursor-not-allowed"
     >
       {loading ? (
         '...'
@@ -18,3 +18,4 @@ export default function MyButton({ loading }: MyButtonProps) {
     </button>
   );
 }
+``

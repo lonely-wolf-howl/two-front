@@ -21,21 +21,13 @@ interface MessageForm {
 export default function ChatsDetail({ params }: Params) {
   let { id: chatRoomId } = params;
   chatRoomId = 'f33c1d86-5718-4fcb-b550-5b9a950a44fc';
-  const [socket, setSocket] = useState(undefined);
+  const [socket, setSocket] = useState(null);
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<MessageForm[]>([]);
   const [userId, setUserId] = useState(new Date());
-  const { getCookie } = useAuth();
-  const accessToken = getCookie('accessToken');
+  const { getAccessToken } = useAuth();
+  const accessToken = getAccessToken();
   const { register, handleSubmit, reset } = useForm<MessageForm>();
-
-  const onValid = (message: MessageForm) => {
-    setLoading(true);
-    socket.emit('message', { ...message, userId });
-    setMessages((prev) => [...prev, { ...message, userId }]);
-    reset();
-    setLoading(false);
-  };
 
   useEffect(() => {
     const options = {
@@ -47,12 +39,32 @@ export default function ChatsDetail({ params }: Params) {
 
     socket.on('connect', () => {
       console.log('WEBSOCKET CONNECTED!');
+      socket.emit('join', { roomId: chatRoomId });
     });
 
     return () => {
       socket.disconnect();
     };
   }, []);
+
+  const onValid = (message: MessageForm) => {
+    setLoading(true);
+    if (socket) {
+      socket.emit('message', { ...message, userId, chatRoomId });
+    }
+    setMessages((prev) => [...prev, { ...message, userId }]);
+    reset();
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('message', (message: MessageForm) => {
+        console.log('MESSAGE FROM SERVER:', message);
+        setMessages((prevMessages) => [...prevMessages, message]);
+      });
+    }
+  }, [socket]);
 
   return (
     <div className="py-4 px-4">
